@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <form action="" method = "post">
+    {% csrf_token %}
+    {{ searchForm }}
+        <input type="submit" value="Search">
+    </form>
+
+    {% if search_by_title %}
+        <p>{{ search_by_title }}</p>
+    {% endif %}
+    {% if search_by_author %}
+        <p>{{ search_by_author }}</p>
+    {% endif %}
+{% endblock %}
+
+{% block search_result %}
+
+{% endblock %}
