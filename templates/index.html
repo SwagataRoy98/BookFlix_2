@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
 <body>
-<h1>Hello World!!</h1>
-
 <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -34,7 +32,7 @@
                 {% if user.is_authenticated %}
                 <li><a href="/">{{ user.username }}</a></li>
                 {% else %}
-                        <li><a href="{% provider_login_url "google" next="/success/url/" %}">{{ user.username }}</a></li>
+                        <li><a href="{% provider_login_url "google" next = "/" %}">{{ user.username }}</a></li>
                 {% endif %}
                 {% if user.is_authenticated and user.is_superuser %}
                 <li><a href="{% url 'admin_dashboard_view' %}">Admin's Panel</a></li>
