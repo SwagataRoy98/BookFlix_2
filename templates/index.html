@@ -33,10 +33,12 @@
                 <li><a href="about.php">About</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="/">{{ user.username }}</a></li>
-                    {% else %}
+                {% else %}
                         <li><a href="{% provider_login_url "google" next="/success/url/" %}">{{ user.username }}</a></li>
                 {% endif %}
+                {% if user.is_authenticated and user.is_superuser %}
                 <li><a href="{% url 'admin_dashboard_view' %}">Admin's Panel</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
