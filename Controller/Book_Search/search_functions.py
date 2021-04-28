@@ -1,6 +1,5 @@
 import json
 import requests
-from time import sleep
 
 
 def search(title, author=None):
@@ -16,7 +15,6 @@ def search(title, author=None):
     edition_list = key_obj["edition_key"][:10]
     for edition in edition_list:
         query_dictionary["edition"].append(search_by_edition(edition))
-        sleep(1)
     return query_dictionary
 
 
@@ -28,7 +26,7 @@ def search_by_edition(key):
     obj = resp.json()
     data_dictionary["title"] = obj["title"]
     try:
-        data_dictionary["description"] = obj["description"]
+        data_dictionary["description"] = obj["description"]["value"]
     except:
         data_dictionary["description"] = "Data not available"
     try:
@@ -37,7 +35,12 @@ def search_by_edition(key):
         data_dictionary["author"] = author_resp["name"]
         print(author_resp["name"])
     except:
-        data_dictionary["author"] = "Author Name not available"
-
+        try:
+            author_url = obj["authors"][0]["key"]
+            author_resp = requests.get(url + author_url + '.json').json()
+            data_dictionary["author"] = author_resp["name"]
+            print(author_resp["name"])
+        except:
+            data_dictionary["author"] = "author name unavailable"
     data_dictionary["cover_url"] = "https://covers.openlibrary.org/b/olid/" + key + "-M.jpg"
     return data_dictionary
